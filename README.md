@@ -22,17 +22,17 @@ AGENTFRAMEWORK
 AgentFramework.py contains the creation of the Agent Class. This creates a single agent class so that when the class is instantiated this runs. A blueprint for creating
 agents which all posses the same behaviour. 
 The Agent class contains the following functions:
-    - def _init_: constructor called when an object is created from the class, the following attributes are initialised: create x, create y, pass environment onto the 
-    agent, create a store and an array which contains all created agents. 
-    - def move: move agents position based on a random number. Import random module and use random.random to generate a random number between 0 and 1. If the number is 
-    less than 0.5 then x and y are increment by 1, if greater than 0.5, x and y are decremented by 1. This function allows agents to be moved randomly. 
-    - def eat: allows interaction between agents and environment. As agent moves through environment this function checks value of environment if greater than 10 then 
-    the agent takes 10 from the environement into its store. 
-    -def getx, setx, gety and sety: these four functions utilise the property attribute in Python. It enables x and y to be called using self.x or self.y. 
-    - def set_all_agents: creates a list of agents which are passed into the agents so each agent knows the location of other agents. 
-    - def ditance_between: calculates distance between the instance of the agent class and another agent. 
-    - def share_with_neighbours: enables interaction between agents. Function creates the dist variable which is equal to distance_between. If this distance is less
-    than neighbourhood (50), then the stores are shared between the agents by taking the average store of the two agents and assigning the average to each. 
+  - def _init_: constructor called when an object is created from the class, the following attributes are initialised: create x, create y, pass environment onto the 
+  agent, create a store and an array which contains all created agents. 
+  - def move: move agents position based on a random number. Import random module and use random.random to generate a random number between 0 and 1. If the number is 
+  less than 0.5 then x and y are increment by 1, if greater than 0.5, x and y are decremented by 1. This function allows agents to be moved randomly.
+  - def eat: allows interaction between agents and environment. As agent moves through environment this function checks value of environment if greater than 10 then 
+  the agent takes 10 from the environement into its store. 
+  - def getx, setx, gety and sety: these four functions utilise the property attribute in Python. It enables x and y to be called using self.x or self.y. 
+  - def set_all_agents: creates a list of agents which are passed into the agents so each agent knows the location of other agents. 
+  - def ditance_between: calculates distance between the instance of the agent class and another agent. 
+  - def share_with_neighbours: enables interaction between agents. Function creates the dist variable which is equal to distance_between. If this distance is less
+  than neighbourhood (50), then the stores are shared between the agents by taking the average store of the two agents and assigning the average to each. 
 
 
 MODEL
