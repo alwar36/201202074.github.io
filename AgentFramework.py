@@ -80,6 +80,9 @@ class Agent:
     # Python allows you to call these properties with self.y
     y = property(gety, sety, "The 'y' property.")
     
+"""use property attribute for getter and setter functionality. This means that 
+     _x and _y can be called using self.x and self.y. By default Python dosen't
+     alter anything with a _before and _ it, property enables this."""  
 
     # Function to enable agents to know location of all other agents. 
     # Set all_agents.
@@ -87,16 +90,17 @@ class Agent:
         self.all_agents = value
      
         
-    #function to calculate distance between first instance and agents.     
+    # Function to calculate distance between first instance and other agents.     
     def distance_between(self, agent):
+        #Do I need a fo loop HERE........... OR is that in MoDEL.py
         return (((self.x - agent.x)**2) + ((self.y - agent.y)**2))**0.5
                 
 
-    # Function to get agents to interact with neighbours. 
+    # Function to enable an agent to interact with its neighbours. 
     def share_with_neighbours(self, neighbourhood):
         # Loop through agents in self.agents
         for agent in self.all_agents:
-            # Calculate distance betwwen self and current other agent.
+            # Calculate distance betwEen self and other agent.
             dist = self.distance_between(agent)
             # If distance is less than or equal to neighbourhood.
             if dist <= neighbourhood:
@@ -115,19 +119,8 @@ class Agent:
 
 
 
-
-"""    # Get distance between self and provided agent.
-    def distance_between(self, agent):
-        return (((self.x - agent.x)**2) + ((self.y - agent.y)**2))**0.5
-
-"""      
-
-
-
-    
-"""use property attribute for getter and setter functionality. This means that 
-     _x and _y can be called using self.x and self.y. By default Python dosen't
-     alter anything with a _before and _ it, property enables this."""       
+ 
+     
   
                 
         
