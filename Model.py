@@ -16,7 +16,9 @@ import matplotlib
 # Use function to state which backend matplotlib is to use.
 matplotlib.use("TkAgg")
 import matplotlib.pyplot 
+# Figure class represents drawing area for matplotlib charts.
 from matplotlib.figure import Figure
+# FigureCanvasTkAgg is an interface between the Figure and Tkinter Canvas. NavigationToolbar2Tk is a built-in toolbar for the figure on the graph.
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2Tk)
 from matplotlib.animation import FuncAnimation 
 # Processing time.
@@ -172,7 +174,7 @@ root = tkinter.Tk()
 title = tkinter.Button(text="Agent Based Model", fg="black", bg="white", width=18, height=2)
 # Use the pack method to add title to window. 
 title.pack()
-# Create figure.
+# Create figure to hold the chart. 
 figure = Figure(figsize=(7, 7), dpi=100)
 # Subplot within figure. 
 plot = figure.add_subplot(1, 1, 1) 
