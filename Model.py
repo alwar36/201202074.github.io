@@ -13,6 +13,7 @@ import tkinter
 import tkinter.ttk 
 # Plot and Animation Creation.
 import matplotlib
+# Use function to state which backend matplotlib is to use.
 matplotlib.use("TkAgg")
 import matplotlib.pyplot 
 from matplotlib.figure import Figure
