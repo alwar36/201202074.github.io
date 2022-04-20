@@ -132,7 +132,11 @@ for j in range(num_of_iterations):
     for i in range(len(agents)):
         # Call share_with_neighbours function which alters agent's store value based on proximity. 
         agents[i].share_with_neighbours(neighbourhood)
- 
+
+#FUNCTION USES ALL_AGENTS SO SHOULD IT BE
+# all_agents[i].share_with_neighbours(neighbourhood)
+
+
 #TRY THESE THEN REMOVE IF CANNOT GET WORKING...
 # Calculate distance between agents 
 """for i in range(0, num_of_agents, 1):
