@@ -4,16 +4,24 @@ Created on Thu Mar 31 14:43:22 2022
 
 @author: Alex Warren
 """
+# IMPORT MODULES
+#---------------
+# Generate random number.
 import random
 
-# A single agent class.
+
+# CREATE AGENT CLASS
+#-------------------
+# Create Agent class.
 class Agent:
     # Constructor - When the class is instantiated this runs.
-    # Takes an ENVIRONMENT
+    # Self represents an instance of the class. As an instance is created it uses self to access class attributes and methods.
+    # The __init__ function is called every time an object is created from a class and lets the class initialize the object's attributes.
+    # Each instance of agent class will have an x and y value, passed through the environment, a store, and a reference to all other agents. 
     def __init__(self, environment):
-        # _x is random int on each Agent.
+        # Random int assigned as _x.
         self._x = random.randint(0,99)
-        # _y is random int on each Agent.
+        # Random int assigned as _y.
         self._y = random.randint(0,99)
         # Set the passed environment value on this agent.
         self.environment = environment
@@ -25,11 +33,10 @@ class Agent:
     
     def move(self):
         """
-        Function to move agents position using a random number.
-
-        Returns
-        Number altered by +/- 1. 
-
+        Function:
+        Moves agents position using a random number.
+        Returns: 
+        Number (_x and _y values) altered +/- 1. 
         """
 
         # If random num is less than 0.5 
