@@ -30,15 +30,9 @@ class Agent:
         # Start the agents array that will contain all the created agents.
         self.all_agents = []
         
-    
+        
+    # Method for altering the values of _x and _y. 
     def move(self):
-        """
-        Function:
-        Moves agents position using a random number.
-        Returns: 
-        Number (_x and _y values) altered +/- 1. 
-        """
-
         # If random num is less than 0.5 
         if random.random() < 0.5:
             # _x is incremented 
@@ -53,6 +47,7 @@ class Agent:
             # _y is decremented 
             self._y = (self._y - 1) % 100
     
+    
     # Method for increasing store value.
     def eat(self):
         # If there's more than 10 left in the cell.
@@ -62,34 +57,32 @@ class Agent:
             # increase store on this agent by 10.
             self.store += 10
 
+    # Using Python Property Attribute.        
     # Return my X value.
     def getx(self):
         #print("getx called")
         return self._x
-    
     # Set the X value (passed in).
     def setx(self, value):
         #print("setx called")
         self._x = value
-    
-    # Python thing that allows you to call these properties with self.x
+    # Python allows you to call these properties with self.x
     x = property(getx, setx,"The 'x' property.")
     
     # Return my Y value.
     def gety(self):
         #print("gety called")
         return self._y
-    
     # Set the Y value (passed in).
     def sety(self, value):
         #print("sety called")
         self._y = value
-    
-    # Python thing that allows you to call these properties with self.y
+    # Python allows you to call these properties with self.y
     y = property(gety, sety, "The 'y' property.")
     
 
-    # Set the all_agents.
+    # Function to enable agents to know location of all other agents. 
+    # Set all_agents.
     def set_all_agents(self, value):
         self.all_agents = value
      
