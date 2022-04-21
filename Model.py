@@ -11,15 +11,13 @@ import random
 # GUI. 
 import tkinter 
 import tkinter.ttk 
+#import tkinter.font as fnt
 # Plot and Animation Creation.
 import matplotlib
 # Use function to state which backend matplotlib is to use.
 matplotlib.use("TkAgg")
 import matplotlib.pyplot 
-# Figure class represents drawing area for matplotlib charts.
-from matplotlib.figure import Figure
-# FigureCanvasTkAgg is an interface between the Figure and Tkinter Canvas. NavigationToolbar2Tk is a built-in toolbar for the figure on the graph.
-from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2Tk)
+# To generate an animation
 from matplotlib.animation import FuncAnimation 
 # Processing time.
 import time 
@@ -27,9 +25,6 @@ import time
 import AgentFramework
 # Read in CSV.
 import csv
-# Read in web data.
-import requests
-import bs4
 
 
 
@@ -70,17 +65,8 @@ f.close()
 
 
 
-#CREATING ANIMATION AND GUI 
-#--------------------------
-fig = matplotlib.pyplot.figure(figsize=(7, 7))
-ax = fig.add_axes([0, 0, 1, 1])
-
-#ax.set_autoscale_on(False)
-
-
-
-# CREATE AGENTS
-# --------------
+# CREATE AGENTS, INTERACTIONS AND ANIMATION
+# ---------------------------
 # Empty array for adding agents.
 agents = []
 
@@ -88,13 +74,38 @@ for i in range(num_of_agents):
     # Append a new instance of the Agent class to the agents array.
     agents.append(AgentFramework.Agent(environment))
 
-# Move agents and interact with environment. 
-for j in range(num_of_iterations):
-    for i in range(num_of_agents):
-        # Calls move function - moves agent position based on random number.
-        agents[i].move()
-        # Calls eat function - agent interacts with environment and changes store. 
-        agents[i].eat()
+# Create carry on variable and set to True.     
+carry_on = True	
+
+# Function to create scatter plot based on agents moving across environment. 
+def update(frame_number):   
+    
+    fig.clear()
+    global carry_on
+    
+    # Move agents and interact with environment. 
+    for j in range(num_of_iterations):
+        for i in range(num_of_agents):
+            # Calls move function - moves agent position based on random number.
+            agents[i].move()
+            # Calls eat function - agent interacts with environment and changes store. 
+            agents[i].eat()
+     
+    if random.random() < 0.1:
+        carry_on = False
+        print("stopping condition")      
+     
+    
+    for i in range(len(agents)):
+        # Plot the agent data as a scatter.
+        matplotlib.pyplot.xlim(0, 100)
+        # Set y axis - 0 (bottom) - 100 (top).
+        matplotlib.pyplot.ylim(0, 100) 
+        # Display takes in environment. 
+        matplotlib.pyplot.imshow(environment)
+        # Display agents.
+        matplotlib.pyplot.scatter(agents[i]._x,agents[i]._y)
+
 
 # Empty array for adding all created agents. Enables agent to know location of other agents.
 all_agents = []        
@@ -103,31 +114,9 @@ for i in range(num_of_agents):
     # Set the all_agents value to the full agents array on this instance of agent.
     agents[i].set_all_agents(agents)
     all_agents.append
-print(all_agents)
+#print(all_agents)
 
 
-
-# PLOT AGENTS ON SCATTER GRAPH
-# ----------------------------
-# Set x axis - 0 (left) - 100 (right).
-matplotlib.pyplot.xlim(0, 100)
-# Set y axis - 0 (bottom) - 100 (top).
-matplotlib.pyplot.ylim(0, 100) 
-# Display takes in environment. 
-matplotlib.pyplot.imshow(environment)
-# Loop over the agents.
-for i in range(len(agents)):
-    # Plot the agent data as a scatter.
-    matplotlib.pyplot.scatter(agents[i]._x,agents[i]._y)
-    # Pause animates scatter plot to show one agent every second.
-    matplotlib.pyplot.pause(1) 
-# Display scatter plot.
-matplotlib.pyplot.imshow 
-
-
-
-# AGENTS INTERACT WITH NEIGHBOURHOOD
-#-----------------------------------
 # Create the Neighbourhood
 neighbourhood = 50
 # Loop through agents for num_of_iterations.
@@ -135,60 +124,55 @@ for j in range(num_of_iterations):
     for i in range(len(agents)):
         # Call share_with_neighbours function which alters agent's store value based on proximity. 
         agents[i].share_with_neighbours(neighbourhood)
+#print(agents)
 
-#FUNCTION USES ALL_AGENTS SO SHOULD IT BE
-# all_agents[i].share_with_neighbours(neighbourhood)
-
-
-#TRY THESE THEN REMOVE IF CANNOT GET WORKING...
-# Calculate distance between agents 
-"""for i in range(0, num_of_agents, 1):
-    for j in range(i + 1, num_of_agents, 1): #excludes 0 from calculations
-        distance = agents[i].distance_between(agent)
-print(distance)  """  
-
-#calculate distance between agents.
-#mindis = AgentFramework_New.distance_between() #minimum distance 
-#for i in range(0, num_of_agents, 1):
-    #for j in range(i + 1, num_of_agents, 1): #excludes 0 from calculations
-        #print(i, j)
-        #distance = distance_between()
-#mindis = min(mindis, AgentFramework_New.distance)
-#print(mindis)
-#END...
+# Function created so that when agents stores all not empty the animation stops. 		
+def gen_function(b = [0]):
+    a = 0
+    global carry_on 
+    while (a < 10) & (carry_on) :
+        # Returns control and waits next call.
+        yield a			
+        a = a + 1
 
 
+# Create figure and axes
+fig = matplotlib.pyplot.figure(figsize=(7, 7))
+ax = matplotlib.pyplot.axes([0, 0, 1, 1])
 
-#CREATING ANIMATION AND GUI CONTINUED
-#------------------------------------
-"""def run():
+# Commented out - animation which runs until num_of_iterations completed.
+#animation = FuncAnimation(fig, update, interval=1, repeat=False, frames=num_of_iterations)
+# Animation runs until agents stores are all not empty.
+#animation = matplotlib.animation.FuncAnimation(fig, update, frames=gen_function, repeat=False)
+#matplotlib.pyplot.imshow()
+
+
+
+#CREATING GUI 
+#------------
+def run():
     animation = matplotlib.animation.FuncAnimation(fig, update, frames=gen_function, repeat=False)
-    canvas.draw() """
+    canvas.draw() 
 
-# Builds the main window
+# Creates main window called root.
 root = tkinter.Tk()
-    #Do I need? - is that why two are created test with each. 
-    # Sets window
-    #window = tkinter.Tk()
-# Creates button and assigns to variable title.
-title = tkinter.Button(text="Agent Based Model", fg="black", bg="white", width=18, height=2)
-# Use the pack method to add title to window. 
-title.pack()
-# Create figure to hold the chart. 
-figure = Figure(figsize=(7, 7), dpi=100)
-# Subplot within figure. 
-plot = figure.add_subplot(1, 1, 1) 
-#create an instance of FigureCanvasTkAgg - an interface between the Figure and Tkinter Canvas.
-canvas = matplotlib.backends.backend_tkagg.FigureCanvasTkAgg(figure, master=root)
+# Sets root title 
+root.wm_title("Agent Based Model")
+canvas = matplotlib.backends.backend_tkagg.FigureCanvasTkAgg(fig, master=root)
 canvas._tkcanvas.pack(side=tkinter.TOP, fill=tkinter.BOTH, expand=1) 
-root.mainloop()
+# Create menu bar.
+menu_bar = tkinter.Menu(root)
+root.config(menu=menu_bar)
+model_menu = tkinter.Menu(menu_bar)
+menu_bar.add_cascade(label="Model", menu=model_menu)
+model_menu.add_command(label="Run model", command=run)
 
-
+# Sets the GUI waiting for events
+tkinter.mainloop()
 
 #END
 #---
 # Calculate and print processing time.
 end = time.process_time()
 print("time = " + str(end - start))
-
 
