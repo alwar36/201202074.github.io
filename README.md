@@ -64,7 +64,7 @@ Create agents, interactions and animation:
     change store values.
   - Use matplotlib.scatter to plot agents within environment and FuncAnimation to make an animated plot.
   - def gen_function: and carry_on variable are used to control at what point the animation stops running. 
-Creat GUI:
+Create GUI:
   - def run(): used to get the animation to render within the GUI. 
   - Remaining code is used to create and configure the GUI window. 
   
