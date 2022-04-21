@@ -37,7 +37,7 @@ The Agent class contains the following functions:
   - def set_all_agents: creates a list of agents which are passed into the agents so each agent knows the location of other 
     agents. 
   - def ditance_between: calculates distance between the instance of the agent class and another agent. 
-  - def share_with_neighbours: enables interaction between agents. Function creates the dist variable which is equal to   
+  - def share_with_neighbours: enables interaction between agents. Function creates the dist variable which is equal to 
     distance_between. If this distance is less than neighbourhood (50), then the stores are shared between the agents by 
     taking the average store of the two agents and assigning the average to each. 
 
@@ -48,14 +48,17 @@ Model.py contains the code for creation of the ABM.
 At the top of the code modules are imported which enable additional functionality. Modules include: AgentFramework, import 
 matplotlib, matplotlib.use('TkAgg'), import tkinter, import random, import operator, import matplotlib.pyplot, import time 
 and import csv. 
+
 Set up:
   - Begin by creating a start variable and assign it time.process_time() from time module to calculate code execution time. 
   - random.seed() is used to ensure the random module generates the same number sequence every time the file runs. 
   - Create three variables: num_of_agents, num_of_iterations, and neighbourhood - assign the values 10, 100, 50. 
+  
 Create environment:
   - Create an empty array called environment.
   - Import the CSV file in.txt. 
   - Read each row in the CSV and append to empty array row_list. Then append row_list to the environment array. 
+  
 Create agents, interactions and animation:
   - Create an empty array for adding agents. 
   - Use for loop to call the Agent class for 10 iterations and then append create agents to the empty agents array. 
@@ -64,6 +67,7 @@ Create agents, interactions and animation:
     change store values.
   - Use matplotlib.scatter to plot agents within environment and FuncAnimation to make an animated plot.
   - def gen_function: and carry_on variable are used to control at what point the animation stops running. 
+  
 Create GUI:
   - def run(): used to get the animation to render within the GUI. 
   - Remaining code is used to create and configure the GUI window. 
