@@ -8,7 +8,7 @@ Created on Tue Mar 29 11:37:41 2022
 #--------------
 # Generate random numbers.
 import random 
-# GUI. 
+# For creating GUI. 
 import tkinter 
 import tkinter.ttk 
 #import tkinter.font as fnt
@@ -43,7 +43,7 @@ num_of_iterations = 100
 
 # CREATE ENVIRONMENT
 # ------------------
-# Start environment as empty array (will be populated by values from CSV data).
+# Start environment as empty array.
 environment = []
 # Open CSV file.
 f = open('in.txt', newline='')
@@ -66,10 +66,10 @@ f.close()
 
 
 # CREATE AGENTS, INTERACTIONS AND ANIMATION
-# ---------------------------
+# -----------------------------------------
 # Empty array for adding agents.
 agents = []
-
+# For loop to create 10 agents and append to agents list.
 for i in range(num_of_agents):
     # Append a new instance of the Agent class to the agents array.
     agents.append(AgentFramework.Agent(environment))
@@ -90,14 +90,34 @@ def update(frame_number):
             agents[i].move()
             # Calls eat function - agent interacts with environment and changes store. 
             agents[i].eat()
-     
+    
+    # If function to determine when animation is to stop running.     
     if random.random() < 0.1:
         carry_on = False
         print("stopping condition")      
      
+    # Empty array for adding all created agents. Enables agent to know location of other agents.
+    all_agents = []        
+    # Loop over all the agents.
+    for i in range(num_of_agents):
+        # Set the all_agents value to the full agents array on this instance of agent.
+        agents[i].set_all_agents(agents)
+        all_agents.append
+    #print(all_agents)
+
+
+    # Create the Neighbourhood
+    neighbourhood = 50
+    # Loop through agents for num_of_iterations.
+    for j in range(num_of_iterations):
+        for i in range(len(agents)):
+            # Call share_with_neighbours function which alters agents store values based on proximity. 
+            agents[i].share_with_neighbours(neighbourhood)
+    #print(agents)
+    
     
     for i in range(len(agents)):
-        # Plot the agent data as a scatter.
+        # Set x axis - 0 (left) - 100 (right).
         matplotlib.pyplot.xlim(0, 100)
         # Set y axis - 0 (bottom) - 100 (top).
         matplotlib.pyplot.ylim(0, 100) 
@@ -106,25 +126,6 @@ def update(frame_number):
         # Display agents.
         matplotlib.pyplot.scatter(agents[i]._x,agents[i]._y)
 
-
-# Empty array for adding all created agents. Enables agent to know location of other agents.
-all_agents = []        
-# Loop over all the agents.
-for i in range(num_of_agents):
-    # Set the all_agents value to the full agents array on this instance of agent.
-    agents[i].set_all_agents(agents)
-    all_agents.append
-#print(all_agents)
-
-
-# Create the Neighbourhood
-neighbourhood = 50
-# Loop through agents for num_of_iterations.
-for j in range(num_of_iterations):
-    for i in range(len(agents)):
-        # Call share_with_neighbours function which alters agent's store value based on proximity. 
-        agents[i].share_with_neighbours(neighbourhood)
-#print(agents)
 
 # Function created so that when agents stores all not empty the animation stops. 		
 def gen_function(b = [0]):
@@ -158,13 +159,16 @@ def run():
 root = tkinter.Tk()
 # Sets root title 
 root.wm_title("Agent Based Model")
+# Gets plot to appear within GUI.
 canvas = matplotlib.backends.backend_tkagg.FigureCanvasTkAgg(fig, master=root)
 canvas._tkcanvas.pack(side=tkinter.TOP, fill=tkinter.BOTH, expand=1) 
 # Create menu bar.
 menu_bar = tkinter.Menu(root)
 root.config(menu=menu_bar)
 model_menu = tkinter.Menu(menu_bar)
+# Creates a drop down on Model button. 
 menu_bar.add_cascade(label="Model", menu=model_menu)
+# Clickable run model button to display animation. 
 model_menu.add_command(label="Run model", command=run)
 
 # Sets the GUI waiting for events
