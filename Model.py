@@ -117,6 +117,12 @@ def update(frame_number):
     
     
     for i in range(len(agents)):
+        # Sets model title.
+        matplotlib.pyplot.title("Agent Based Model")
+        # Sets x axis label.
+        matplotlib.pyplot.xlabel("X Coordinates")
+        # Sets y axis label.
+        matplotlib.pyplot.ylabel("Y Coordinates")
         # Set x axis - 0 (left) - 100 (right).
         matplotlib.pyplot.xlim(0, 100)
         # Set y axis - 0 (bottom) - 100 (top).
@@ -125,6 +131,7 @@ def update(frame_number):
         matplotlib.pyplot.imshow(environment)
         # Display agents.
         matplotlib.pyplot.scatter(agents[i]._x,agents[i]._y)
+
 
 
 # Function created so that when agents stores all not empty the animation stops. 		
@@ -170,6 +177,13 @@ model_menu = tkinter.Menu(menu_bar)
 menu_bar.add_cascade(label="Model", menu=model_menu)
 # Clickable run model button to display animation. 
 model_menu.add_command(label="Run model", command=run)
+# Creates label explaining how to run model and what model shows. 
+my_label = tkinter.Label(root, 
+                         text="Select 'Model' and then 'Run Model' to execute.\nAn animated scatterplot displays showing agents as they move across the environment.\nInteraction occurs between agents and the environment leading to changes in agent store values.",
+                         font=(18), bd=1, relief="sunken", bg="#cbbeb5", fg="#292f29")
+# Adds label to GUI.
+my_label.pack()
+
 
 # Sets the GUI waiting for events
 tkinter.mainloop()
